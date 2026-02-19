@@ -120,7 +120,11 @@ const ProjectTile = (props: {
         onClick={() => props.navigateToProject(props.project.worktree)}
         onBlur={() => props.setOpen(false)}
       >
-        <ProjectIcon project={props.project} notify />
+        <ProjectIcon
+          project={props.project}
+          notify
+          classList={{ "opacity-33": !props.selected(), "opacity-100": props.selected() }}
+        />
       </ContextMenu.Trigger>
       <ContextMenu.Portal mount={!props.mobile ? props.nav() : undefined}>
         <ContextMenu.Content>

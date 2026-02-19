@@ -374,8 +374,8 @@ export function MessageTimeline(props: {
                 "sticky top-0 z-30 bg-[linear-gradient(to_bottom,var(--background-stronger)_48px,transparent)]": true,
                 "w-full": true,
                 "pb-4": true,
-                "pl-2 pr-3 md:pl-4 md:pr-3": true,
-                "md:max-w-200 md:mx-auto 2xl:max-w-[1000px]": props.centered,
+                "px-4 md:px-5": true,
+                "mx-auto max-w-[var(--container-width, 580px)]": true,
               }}
             >
               <div class="h-12 w-full flex items-center justify-between gap-2">
@@ -394,7 +394,7 @@ export function MessageTimeline(props: {
                       when={title.editing}
                       fallback={
                         <h1
-                          class="text-14-medium text-text-strong truncate grow-1 min-w-0 pl-2"
+                          class="text-14-medium text-text-strong truncate grow-1 min-w-0"
                           onDblClick={openTitleEditor}
                         >
                           {titleValue()}
@@ -407,7 +407,7 @@ export function MessageTimeline(props: {
                         }}
                         value={title.draft}
                         disabled={title.saving}
-                        class="text-14-medium text-text-strong grow-1 min-w-0 pl-2 rounded-[6px]"
+                        class="text-14-medium text-text-strong grow-1 min-w-0 rounded-[6px]"
                         style={{ "--inline-input-shadow": "var(--shadow-xs-border-select)" }}
                         onInput={(event) => setTitle("draft", event.currentTarget.value)}
                         onKeyDown={(event) => {
@@ -487,7 +487,7 @@ export function MessageTimeline(props: {
             class="flex flex-col gap-12 items-start justify-start pb-16 transition-[margin]"
             classList={{
               "w-full": true,
-              "md:max-w-200 md:mx-auto 2xl:max-w-[1000px]": props.centered,
+              "md:max-w-[580px] md:mx-auto 2xl:max-w-[580px]": props.centered,
               "mt-0.5": props.centered,
               "mt-0": !props.centered,
             }}
@@ -525,7 +525,7 @@ export function MessageTimeline(props: {
                   }}
                   classList={{
                     "min-w-0 w-full max-w-full": true,
-                    "md:max-w-200 2xl:max-w-[1000px]": props.centered,
+                    "md:max-w-[580px] 2xl:max-w-[580px]": props.centered,
                   }}
                 >
                   <SessionTurn

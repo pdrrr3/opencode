@@ -9,7 +9,7 @@ import { useTheme, type ColorScheme } from "@opencode-ai/ui/theme"
 import { showToast } from "@opencode-ai/ui/toast"
 import { useLanguage } from "@/context/language"
 import { usePlatform } from "@/context/platform"
-import { useSettings, monoFontFamily } from "@/context/settings"
+import { useSettings, monoFontFamily, uiFontFamily } from "@/context/settings"
 import { playSound, SOUND_OPTIONS } from "@/utils/sound"
 import { Link } from "./link"
 
@@ -116,6 +116,7 @@ export const SettingsGeneral: Component = () => {
   )
 
   const fontOptions = [
+    { value: "akkurat-mono", label: "font.option.akkuratMono" },
     { value: "ibm-plex-mono", label: "font.option.ibmPlexMono" },
     { value: "cascadia-code", label: "font.option.cascadiaCode" },
     { value: "fira-code", label: "font.option.firaCode" },
@@ -130,7 +131,17 @@ export const SettingsGeneral: Component = () => {
     { value: "ubuntu-mono", label: "font.option.ubuntuMono" },
     { value: "geist-mono", label: "font.option.geistMono" },
   ] as const
+
+  const uiFontOptions = [
+    { value: "usb", label: "font.option.usb" },
+    { value: "akkurat-mono", label: "font.option.akkuratMono" },
+    { value: "inter", label: "font.option.inter" },
+    { value: "system-sans", label: "font.option.systemSans" },
+    { value: "system-serif", label: "font.option.systemSerif" },
+  ] as const
+
   const fontOptionsList = [...fontOptions]
+  const uiFontOptionsList = [...uiFontOptions]
 
   const soundOptions = [...SOUND_OPTIONS]
 
@@ -175,6 +186,7 @@ export const SettingsGeneral: Component = () => {
           />
         </SettingsRow>
 
+        {/* Color scheme and theme settings hidden
         <SettingsRow
           title={language.t("settings.general.row.appearance.title")}
           description={language.t("settings.general.row.appearance.description")}
@@ -196,6 +208,7 @@ export const SettingsGeneral: Component = () => {
             triggerVariant="settings"
           />
         </SettingsRow>
+        */}
 
         <SettingsRow
           title={language.t("settings.general.row.theme.title")}
@@ -249,6 +262,104 @@ export const SettingsGeneral: Component = () => {
               </span>
             )}
           </Select>
+        </SettingsRow>
+
+        <SettingsRow
+          title={language.t("settings.general.row.uiFont.title")}
+          description={language.t("settings.general.row.uiFont.description")}
+        >
+          <Select
+            data-action="settings-ui-font"
+            options={uiFontOptionsList}
+            current={uiFontOptionsList.find((o) => o.value === settings.appearance.uiFont())}
+            value={(o) => o.value}
+            label={(o) => language.t(o.label)}
+            onSelect={(option) => option && settings.appearance.setUiFont(option.value)}
+            variant="secondary"
+            size="small"
+            triggerVariant="settings"
+            triggerStyle={{ "font-family": uiFontFamily(settings.appearance.uiFont()), "min-width": "180px" }}
+          >
+            {(option) => (
+              <span style={{ "font-family": uiFontFamily(option?.value) }}>
+                {option ? language.t(option.label) : ""}
+              </span>
+            )}
+          </Select>
+        </SettingsRow>
+
+        <SettingsRow
+          title={language.t("settings.general.row.uiFontSize.title")}
+          description={language.t("settings.general.row.uiFontSize.description")}
+        >
+          <div class="flex items-center gap-3">
+            <input
+              type="range"
+              min="10"
+              max="20"
+              step="0.5"
+              value={settings.appearance.uiFontSize()}
+              onInput={(e) => settings.appearance.setUiFontSize(parseFloat(e.currentTarget.value))}
+              class="w-32"
+            />
+            <span class="text-13-regular text-text-base w-12 text-right">{settings.appearance.uiFontSize()}px</span>
+          </div>
+        </SettingsRow>
+
+        <SettingsRow
+          title={language.t("settings.general.row.uiLineHeight.title")}
+          description={language.t("settings.general.row.uiLineHeight.description")}
+        >
+          <div class="flex items-center gap-3">
+            <input
+              type="range"
+              min="1"
+              max="2"
+              step="0.1"
+              value={settings.appearance.uiLineHeight()}
+              onInput={(e) => settings.appearance.setUiLineHeight(parseFloat(e.currentTarget.value))}
+              class="w-32"
+            />
+            <span class="text-13-regular text-text-base w-12 text-right">{settings.appearance.uiLineHeight()}</span>
+          </div>
+        </SettingsRow>
+
+        <SettingsRow
+          title={language.t("settings.general.row.uiLetterSpacing.title")}
+          description={language.t("settings.general.row.uiLetterSpacing.description")}
+        >
+          <div class="flex items-center gap-3">
+            <input
+              type="range"
+              min="-0.05"
+              max="0.1"
+              step="0.01"
+              value={settings.appearance.uiLetterSpacing()}
+              onInput={(e) => settings.appearance.setUiLetterSpacing(parseFloat(e.currentTarget.value))}
+              class="w-32"
+            />
+            <span class="text-13-regular text-text-base w-12 text-right">
+              {Math.round(settings.appearance.uiLetterSpacing() * 100)}%
+            </span>
+          </div>
+        </SettingsRow>
+
+        <SettingsRow
+          title={language.t("settings.general.row.containerWidth.title")}
+          description={language.t("settings.general.row.containerWidth.description")}
+        >
+          <div class="flex items-center gap-3">
+            <input
+              type="range"
+              min="400"
+              max="1200"
+              step="20"
+              value={settings.appearance.containerWidth()}
+              onInput={(e) => settings.appearance.setContainerWidth(parseInt(e.currentTarget.value))}
+              class="w-32"
+            />
+            <span class="text-13-regular text-text-base w-12 text-right">{settings.appearance.containerWidth()}px</span>
+          </div>
         </SettingsRow>
       </div>
     </div>

@@ -19,7 +19,12 @@ import { agentColor } from "@/utils/agent"
 
 const OPENCODE_PROJECT_ID = "4b0ea68d7af9a6031a7ffda7ad66e0cb83315750"
 
-export const ProjectIcon = (props: { project: LocalProject; class?: string; notify?: boolean }): JSX.Element => {
+export const ProjectIcon = (props: {
+  project: LocalProject
+  class?: string
+  classList?: Record<string, boolean>
+  notify?: boolean
+}): JSX.Element => {
   const notification = useNotification()
   const dirs = createMemo(() => [props.project.worktree, ...(props.project.sandboxes ?? [])])
   const unseenCount = createMemo(() =>
@@ -28,7 +33,7 @@ export const ProjectIcon = (props: { project: LocalProject; class?: string; noti
   const hasError = createMemo(() => dirs().some((directory) => notification.project.unseenHasError(directory)))
   const name = createMemo(() => props.project.name || getFilename(props.project.worktree))
   return (
-    <div class={`relative size-8 shrink-0 rounded ${props.class ?? ""}`}>
+    <div class={`relative size-8 shrink-0 rounded ${props.class ?? ""}`} classList={props.classList}>
       <div class="size-full rounded overflow-clip">
         <Avatar
           fallback={name()}
@@ -89,7 +94,7 @@ const SessionRow = (props: {
 }): JSX.Element => (
   <A
     href={`/${props.slug}/session/${props.session.id}`}
-    class={`flex items-center justify-between gap-3 min-w-0 text-left w-full focus:outline-none transition-[padding] ${props.mobile ? "pr-7" : ""} group-hover/session:pr-7 group-focus-within/session:pr-7 group-active/session:pr-7 ${props.dense ? "py-0.5" : "py-1"}`}
+    class={`flex items-center justify-start gap-3 min-w-0 text-left w-full focus:outline-none transition-[padding] opacity-50 ${props.mobile ? "pr-7" : ""} group-hover/session:pr-7 group-focus-within/session:pr-7 group-active/session:pr-7 ${props.dense ? "py-0.5" : "py-1"}`}
     onPointerEnter={props.scheduleHoverPrefetch}
     onPointerLeave={props.cancelHoverPrefetch}
     onMouseEnter={props.scheduleHoverPrefetch}
@@ -353,7 +358,7 @@ export const NewSessionItem = (props: {
     <A
       href={`/${props.slug}/session`}
       end
-      class={`flex items-center justify-between gap-3 min-w-0 text-left w-full focus:outline-none ${props.dense ? "py-0.5" : "py-1"}`}
+      class={`flex items-center justify-start gap-3 min-w-0 text-left w-full focus:outline-none opacity-50 bg-background-strong hover:bg-background-base rounded-md px-2 ${props.dense ? "py-0.5" : "py-1"}`}
       onClick={() => {
         props.setHoverSession(undefined)
         if (layout.sidebar.opened()) return

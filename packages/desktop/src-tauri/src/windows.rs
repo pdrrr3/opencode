@@ -166,9 +166,7 @@ fn base_window_config<'a, R: Runtime, M: Manager<R>>(
 
     #[cfg(target_os = "macos")]
     let window_builder = window_builder
-        .title_bar_style(tauri::TitleBarStyle::Overlay)
-        .hidden_title(true)
-        .traffic_light_position(tauri::LogicalPosition::new(12.0, 18.0));
+        .title_bar_style(tauri::TitleBarStyle::Visible);
 
     window_builder
 }

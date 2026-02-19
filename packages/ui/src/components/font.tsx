@@ -4,6 +4,9 @@ import ibmPlexMonoRegular from "../assets/fonts/ibm-plex-mono.woff2"
 import ibmPlexMonoMedium from "../assets/fonts/ibm-plex-mono-medium.woff2"
 import ibmPlexMonoBold from "../assets/fonts/ibm-plex-mono-bold.woff2"
 
+import usb from "../assets/fonts/usb.otf"
+import akkuratMono from "../assets/fonts/akkurat-mono.otf"
+
 import cascadiaCode from "../assets/fonts/cascadia-code-nerd-font.woff2"
 import cascadiaCodeBold from "../assets/fonts/cascadia-code-nerd-font-bold.woff2"
 import firaCode from "../assets/fonts/fira-code-nerd-font.woff2"
@@ -36,6 +39,11 @@ type MonoFont = {
 }
 
 export const MONO_NERD_FONTS = [
+  {
+    family: "Akkurat Mono",
+    regular: akkuratMono,
+    bold: akkuratMono,
+  },
   {
     family: "JetBrains Mono Nerd Font",
     regular: jetbrainsMono,
@@ -120,6 +128,20 @@ export const Font = () => {
   return (
     <>
       <Style>{`
+        @font-face {
+          font-family: "USB";
+          src: url("${usb}") format("opentype");
+          font-display: swap;
+          font-style: normal;
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Akkurat Mono";
+          src: url("${akkuratMono}") format("opentype");
+          font-display: swap;
+          font-style: normal;
+          font-weight: 400;
+        }
         @font-face {
           font-family: "Inter";
           src: url("${inter}") format("woff2-variations");

@@ -29,6 +29,12 @@ export interface Settings {
   appearance: {
     fontSize: number
     font: string
+    uiFont: string
+    uiFontSize: number
+    uiLineHeight: number
+    uiLetterSpacing: number
+    containerWidth: number
+    uiTextOpacity: number
   }
   keybinds: Record<string, string>
   permissions: {
@@ -48,7 +54,13 @@ const defaultSettings: Settings = {
   },
   appearance: {
     fontSize: 14,
-    font: "ibm-plex-mono",
+    font: "akkurat-mono",
+    uiFont: "usb",
+    uiFontSize: 14,
+    uiLineHeight: 1.5,
+    uiLetterSpacing: 0.03,
+    containerWidth: 680,
+    uiTextOpacity: 0.95,
   },
   keybinds: {},
   permissions: {
@@ -73,6 +85,8 @@ const monoFallback =
   'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
 
 const monoFonts: Record<string, string> = {
+  "akkurat-mono": `"Akkurat Mono", ${monoFallback}`,
+  usb: `"USB", sans-serif`,
   "ibm-plex-mono": `"IBM Plex Mono", "IBM Plex Mono Fallback", ${monoFallback}`,
   "cascadia-code": `"Cascadia Code Nerd Font", "Cascadia Code NF", "Cascadia Mono NF", "IBM Plex Mono", "IBM Plex Mono Fallback", ${monoFallback}`,
   "fira-code": `"Fira Code Nerd Font", "FiraMono Nerd Font", "FiraMono Nerd Font Mono", "IBM Plex Mono", "IBM Plex Mono Fallback", ${monoFallback}`,
@@ -88,8 +102,20 @@ const monoFonts: Record<string, string> = {
   "geist-mono": `"GeistMono Nerd Font", "GeistMono Nerd Font Mono", "IBM Plex Mono", "IBM Plex Mono Fallback", ${monoFallback}`,
 }
 
+const uiFonts: Record<string, string> = {
+  usb: `"USB", sans-serif`,
+  "akkurat-mono": `"Akkurat Mono", ${monoFallback}`,
+  inter: `"Inter", "Inter Fallback", sans-serif`,
+  "system-sans": `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`,
+  "system-serif": `"Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, serif`,
+}
+
 export function monoFontFamily(font: string | undefined) {
   return monoFonts[font ?? defaultSettings.appearance.font] ?? monoFonts[defaultSettings.appearance.font]
+}
+
+export function uiFontFamily(font: string | undefined) {
+  return uiFonts[font ?? defaultSettings.appearance.uiFont] ?? uiFonts[defaultSettings.appearance.uiFont]
 }
 
 function withFallback<T>(read: () => T | undefined, fallback: T) {
@@ -104,6 +130,12 @@ export const { use: useSettings, provider: SettingsProvider } = createSimpleCont
     createEffect(() => {
       if (typeof document === "undefined") return
       document.documentElement.style.setProperty("--font-family-mono", monoFontFamily(store.appearance?.font))
+      document.documentElement.style.setProperty("--font-family-sans", uiFontFamily(store.appearance?.uiFont))
+      document.documentElement.style.setProperty("--ui-font-size", `${store.appearance?.uiFontSize}px`)
+      document.documentElement.style.setProperty("--ui-line-height", `${store.appearance?.uiLineHeight}`)
+      document.documentElement.style.setProperty("--ui-letter-spacing", `${store.appearance?.uiLetterSpacing}em`)
+      document.documentElement.style.setProperty("--container-width", `${store.appearance?.containerWidth}px`)
+      document.documentElement.style.setProperty("--ui-text-opacity", `${store.appearance?.uiTextOpacity}`)
     })
 
     return {
@@ -135,6 +167,29 @@ export const { use: useSettings, provider: SettingsProvider } = createSimpleCont
         font: withFallback(() => store.appearance?.font, defaultSettings.appearance.font),
         setFont(value: string) {
           setStore("appearance", "font", value)
+        },
+        uiFont: withFallback(() => store.appearance?.uiFont, defaultSettings.appearance.uiFont),
+        setUiFont(value: string) {
+          setStore("appearance", "uiFont", value)
+        },
+        uiFontSize: withFallback(() => store.appearance?.uiFontSize, defaultSettings.appearance.uiFontSize),
+        setUiFontSize(value: number) {
+          setStore("appearance", "uiFontSize", value)
+        },
+        uiLineHeight: withFallback(() => store.appearance?.uiLineHeight, defaultSettings.appearance.uiLineHeight),
+        setUiLineHeight(value: number) {
+          setStore("appearance", "uiLineHeight", value)
+        },
+        uiLetterSpacing: withFallback(
+          () => store.appearance?.uiLetterSpacing,
+          defaultSettings.appearance.uiLetterSpacing,
+        ),
+        setUiLetterSpacing(value: number) {
+          setStore("appearance", "uiLetterSpacing", value)
+        },
+        containerWidth: withFallback(() => store.appearance?.containerWidth, defaultSettings.appearance.containerWidth),
+        setContainerWidth(value: number) {
+          setStore("appearance", "containerWidth", value)
         },
       },
       keybinds: {

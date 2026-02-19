@@ -1049,8 +1049,8 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
         onSubmit={handleSubmit}
         classList={{
           "group/prompt-input": true,
-          "bg-surface-raised-stronger-non-alpha shadow-xs-border relative z-10": true,
-          "rounded-[12px] overflow-clip focus-within:shadow-xs-border": true,
+          "relative z-10": true,
+          "rounded-[12px] overflow-clip": true,
           "border-icon-info-active border-dashed": store.draggingType !== null,
           [props.class ?? ""]: !!props.class,
         }}
@@ -1133,7 +1133,7 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
             </Show>
           </div>
 
-          <div class="pointer-events-none absolute bottom-2 right-2 flex items-center gap-2">
+          <div class="pointer-events-none absolute bottom-2 right-2 flex items-center gap-2 hidden">
             <input
               ref={fileInputRef}
               type="file"
@@ -1245,7 +1245,7 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
         </div>
       </form>
       <Show when={store.mode === "normal" || store.mode === "shell"}>
-        <div class="-mt-3.5 bg-background-base border border-border-weak-base relative z-0 rounded-[12px] rounded-tl-0 rounded-tr-0 overflow-clip">
+        <div class="-mt-3.5 relative z-0 rounded-[12px] rounded-tl-0 rounded-tr-0 overflow-clip text-white/50 opacity-50">
           <div class="px-2 pt-5.5 pb-2 flex items-center gap-2 min-w-0">
             <div class="flex items-center gap-1.5 min-w-0 flex-1">
               <Show when={store.mode === "shell"}>

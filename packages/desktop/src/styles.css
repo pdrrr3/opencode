@@ -5,3 +5,81 @@ button#decorum-tb-close,
 div[data-tauri-decorum-tb] {
   height: calc(var(--spacing) * 10) !important;
 }
+
+/* Custom fonts */
+:root {
+  --font-ui: "USB", sans-serif;
+  --font-code: "Akkurat Mono", monospace;
+  --ui-font-size: 14px;
+  --ui-line-height: 1.5;
+  --ui-letter-spacing: 0.03em;
+}
+
+[data-theme="vesper"] {
+  --background-base: #000000 !important;
+  --background-stronger: #000000 !important;
+  --surface-base: #000000 !important;
+  --surface-raised-base: #000000 !important;
+  --surface-raised-stronger-non-alpha: #000000 !important;
+}
+
+body {
+  font-family: var(--font-ui) !important;
+  font-size: var(--ui-font-size);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  background: var(--background-base) !important;
+}
+
+::selection {
+  background: yellow !important;
+  color: black !important;
+}
+
+svg[data-component="logo-splash"],
+svg[data-component="logo-splash"] * {
+  color: #fff !important;
+  fill: #fff !important;
+  stroke: #fff !important;
+}
+
+[data-theme="vesper"] {
+  --background-base: #080808 !important;
+  --background-stronger: #080808 !important;
+  --surface-base: #080808 !important;
+  --surface-panel: #080808 !important;
+  --surface-raised-base: #080808 !important;
+  --surface-variant-base: #080808 !important;
+  --smoke-dark-1: #080808 !important;
+  --smoke-dark-alpha-2: #080808 !important;
+}
+
+* {
+  background: var(--background-base) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--font-code) !important;
+  letter-spacing: 0;
+}
+
+/* Editor UI text styling */
+[data-component="prompt-input"],
+[data-component="session-prompt-dock"] .text-13-regular,
+[data-component="session-prompt-dock"] .text-14-regular,
+[data-component="session-prompt-dock"] button,
+[data-component="session-prompt-dock"] span {
+  font-size: var(--ui-font-size) !important;
+  line-height: var(--ui-line-height) !important;
+  letter-spacing: var(--ui-letter-spacing) !important;
+}
+
+[data-component="message-timeline"] {
+  max-width: var(--container-width, 680px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

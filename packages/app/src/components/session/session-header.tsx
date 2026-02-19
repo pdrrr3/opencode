@@ -301,241 +301,165 @@ export function SessionHeader() {
 
   return (
     <>
-      <Show when={centerMount()}>
-        {(mount) => (
-          <Portal mount={mount()}>
-            <Button
-              type="button"
-              variant="ghost"
-              size="small"
-              class="hidden md:flex w-[240px] max-w-full min-w-0 pl-0.5 pr-2 items-center gap-2 justify-between rounded-md border border-border-weak-base bg-surface-panel shadow-none cursor-default"
-              onClick={() => command.trigger("file.open")}
-              aria-label={language.t("session.header.searchFiles")}
-            >
-              <div class="flex min-w-0 flex-1 items-center gap-1.5 overflow-visible">
-                <Icon name="magnifying-glass" size="small" class="icon-base shrink-0 size-4" />
-                <span class="flex-1 min-w-0 text-12-regular text-text-weak truncate text-left">
-                  {language.t("session.header.search.placeholder", { project: name() })}
-                </span>
-              </div>
-
-              <Show when={hotkey()}>
-                {(keybind) => (
-                  <Keybind class="shrink-0 !border-0 !bg-transparent !shadow-none px-0">{keybind()}</Keybind>
-                )}
-              </Show>
-            </Button>
-          </Portal>
-        )}
-      </Show>
       <Show when={rightMount()}>
         {(mount) => (
           <Portal mount={mount()}>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-6 justify-evenly flex-1">
+              <Tooltip placement="bottom" value={language.t("session.header.searchFiles")}>
+                <IconButton
+                  icon="magnifying-glass"
+                  variant="ghost"
+                  size="normal"
+                  class="size-6 p-0 text-icon-base hover:text-icon-strong"
+                  onClick={() => command.trigger("file.open")}
+                  aria-label={language.t("session.header.searchFiles")}
+                />
+              </Tooltip>
               <StatusPopover />
               <Show when={projectDirectory()}>
                 <div class="hidden xl:flex items-center">
-                  <Show
-                    when={canOpen()}
-                    fallback={
-                      <div class="flex h-[24px] box-border items-center rounded-md border border-border-weak-base bg-surface-panel overflow-hidden">
-                        <Button
-                          variant="ghost"
-                          class="rounded-none h-full py-0 pr-3 pl-0.5 gap-1.5 border-none shadow-none"
-                          onClick={copyPath}
-                          aria-label={language.t("session.header.open.copyPath")}
-                        >
-                          <Icon name="copy" size="small" class="text-icon-base" />
-                          <span class="text-12-regular text-text-strong">
-                            {language.t("session.header.open.copyPath")}
-                          </span>
-                        </Button>
-                      </div>
-                    }
-                  >
-                    <div class="flex items-center">
-                      <div class="flex h-[24px] box-border items-center rounded-md border border-border-weak-base bg-surface-panel overflow-hidden">
-                        <Button
-                          variant="ghost"
-                          class="rounded-none h-full py-0 pr-3 pl-0.5 gap-1.5 border-none shadow-none"
-                          onClick={() => openDir(current().id)}
-                          aria-label={language.t("session.header.open.ariaLabel", { app: current().label })}
-                        >
-                          <div class="flex size-5 shrink-0 items-center justify-center">
-                            <AppIcon id={current().icon} class="size-4" />
-                          </div>
-                          <span class="text-12-regular text-text-strong">Open</span>
-                        </Button>
-                        <div class="self-stretch w-px bg-border-weak-base" />
-                        <DropdownMenu
-                          gutter={4}
-                          placement="bottom-end"
-                          open={menu.open}
-                          onOpenChange={(open) => setMenu("open", open)}
-                        >
-                          <DropdownMenu.Trigger
-                            as={IconButton}
-                            icon="chevron-down"
-                            variant="ghost"
-                            class="rounded-none h-full w-[24px] p-0 border-none shadow-none data-[expanded]:bg-surface-raised-base-hover"
-                            aria-label={language.t("session.header.open.menu")}
-                          />
-                          <DropdownMenu.Portal>
-                            <DropdownMenu.Content>
-                              <DropdownMenu.Group>
-                                <DropdownMenu.GroupLabel>{language.t("session.header.openIn")}</DropdownMenu.GroupLabel>
-                                <DropdownMenu.RadioGroup
-                                  value={current().id}
-                                  onChange={(value) => {
-                                    if (!OPEN_APPS.includes(value as OpenApp)) return
-                                    setPrefs("app", value as OpenApp)
-                                  }}
-                                >
-                                  <For each={options()}>
-                                    {(o) => (
-                                      <DropdownMenu.RadioItem
-                                        value={o.id}
-                                        onSelect={() => {
-                                          setMenu("open", false)
-                                          openDir(o.id)
-                                        }}
-                                      >
-                                        <div class="flex size-5 shrink-0 items-center justify-center">
-                                          <AppIcon id={o.icon} class={openIconSize(o.icon)} />
-                                        </div>
-                                        <DropdownMenu.ItemLabel>{o.label}</DropdownMenu.ItemLabel>
-                                        <DropdownMenu.ItemIndicator>
-                                          <Icon name="check-small" size="small" class="text-icon-weak" />
-                                        </DropdownMenu.ItemIndicator>
-                                      </DropdownMenu.RadioItem>
-                                    )}
-                                  </For>
-                                </DropdownMenu.RadioGroup>
-                              </DropdownMenu.Group>
-                              <DropdownMenu.Separator />
-                              <DropdownMenu.Item
-                                onSelect={() => {
-                                  setMenu("open", false)
-                                  copyPath()
-                                }}
-                              >
-                                <div class="flex size-5 shrink-0 items-center justify-center">
-                                  <Icon name="copy" size="small" class="text-icon-weak" />
-                                </div>
-                                <DropdownMenu.ItemLabel>
-                                  {language.t("session.header.open.copyPath")}
-                                </DropdownMenu.ItemLabel>
-                              </DropdownMenu.Item>
-                            </DropdownMenu.Content>
-                          </DropdownMenu.Portal>
-                        </DropdownMenu>
-                      </div>
-                    </div>
+                  <Show when={canOpen()}>
+                    <DropdownMenu
+                      gutter={4}
+                      placement="bottom-end"
+                      open={menu.open}
+                      onOpenChange={(open) => setMenu("open", open)}
+                    >
+                      <DropdownMenu.Trigger
+                        as="button"
+                        class="flex items-center justify-center size-6 p-0 rounded cursor-default outline-none hover:opacity-80"
+                        style={{ background: "transparent", border: "none" }}
+                        aria-label={language.t("session.header.open.menu")}
+                      >
+                        <AppIcon id={current().icon} class={openIconSize(current().icon)} />
+                      </DropdownMenu.Trigger>
+                      <DropdownMenu.Portal>
+                        <DropdownMenu.Content>
+                          <DropdownMenu.Group>
+                            <DropdownMenu.GroupLabel>{language.t("session.header.openIn")}</DropdownMenu.GroupLabel>
+                            <DropdownMenu.RadioGroup
+                              value={current().id}
+                              onChange={(value) => {
+                                if (!OPEN_APPS.includes(value as OpenApp)) return
+                                setPrefs("app", value as OpenApp)
+                              }}
+                            >
+                              <For each={options()}>
+                                {(o) => (
+                                  <DropdownMenu.RadioItem
+                                    value={o.id}
+                                    onSelect={() => {
+                                      setMenu("open", false)
+                                      openDir(o.id)
+                                    }}
+                                  >
+                                    <div class="flex size-5 shrink-0 items-center justify-center">
+                                      <AppIcon id={o.icon} class={openIconSize(o.icon)} />
+                                    </div>
+                                    <DropdownMenu.ItemLabel>{o.label}</DropdownMenu.ItemLabel>
+                                    <DropdownMenu.ItemIndicator>
+                                      <Icon name="check-small" size="small" class="text-icon-weak" />
+                                    </DropdownMenu.ItemIndicator>
+                                  </DropdownMenu.RadioItem>
+                                )}
+                              </For>
+                            </DropdownMenu.RadioGroup>
+                          </DropdownMenu.Group>
+                          <DropdownMenu.Separator />
+                          <DropdownMenu.Item
+                            onSelect={() => {
+                              setMenu("open", false)
+                              copyPath()
+                            }}
+                          >
+                            <div class="flex size-5 shrink-0 items-center justify-center">
+                              <Icon name="copy" size="small" class="text-icon-weak" />
+                            </div>
+                            <DropdownMenu.ItemLabel>
+                              {language.t("session.header.open.copyPath")}
+                            </DropdownMenu.ItemLabel>
+                          </DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                      </DropdownMenu.Portal>
+                    </DropdownMenu>
                   </Show>
                 </div>
               </Show>
               <Show when={showShare()}>
-                <div class="flex items-center">
-                  <Popover
-                    title={language.t("session.share.popover.title")}
-                    description={
-                      share.shareUrl()
-                        ? language.t("session.share.popover.description.shared")
-                        : language.t("session.share.popover.description.unshared")
-                    }
-                    gutter={4}
-                    placement="bottom-end"
-                    shift={-64}
-                    class="rounded-xl [&_[data-slot=popover-close-button]]:hidden"
-                    triggerAs={Button}
-                    triggerProps={{
-                      variant: "ghost",
-                      class:
-                        "rounded-md h-[24px] px-3 border border-border-weak-base bg-surface-panel shadow-none data-[expanded]:bg-surface-base-active",
-                      classList: { "rounded-r-none": share.shareUrl() !== undefined },
-                      style: { scale: 1 },
-                    }}
-                    trigger={<span class="text-12-regular">{language.t("session.share.action.share")}</span>}
-                  >
-                    <div class="flex flex-col gap-2">
-                      <Show
-                        when={share.shareUrl()}
-                        fallback={
-                          <div class="flex">
-                            <Button
-                              size="large"
-                              variant="primary"
-                              class="w-1/2"
-                              onClick={share.shareSession}
-                              disabled={share.state.share}
-                            >
-                              {share.state.share
-                                ? language.t("session.share.action.publishing")
-                                : language.t("session.share.action.publish")}
-                            </Button>
-                          </div>
-                        }
-                      >
-                        <div class="flex flex-col gap-2">
-                          <TextField
-                            value={share.shareUrl() ?? ""}
-                            readOnly
-                            copyable
-                            copyKind="link"
-                            tabIndex={-1}
-                            class="w-full"
-                          />
-                          <div class="grid grid-cols-2 gap-2">
-                            <Button
-                              size="large"
-                              variant="secondary"
-                              class="w-full shadow-none border border-border-weak-base"
-                              onClick={share.unshareSession}
-                              disabled={share.state.unshare}
-                            >
-                              {share.state.unshare
-                                ? language.t("session.share.action.unpublishing")
-                                : language.t("session.share.action.unpublish")}
-                            </Button>
-                            <Button
-                              size="large"
-                              variant="primary"
-                              class="w-full"
-                              onClick={share.viewShare}
-                              disabled={share.state.unshare}
-                            >
-                              {language.t("session.share.action.view")}
-                            </Button>
-                          </div>
+                <Popover
+                  title={language.t("session.share.popover.title")}
+                  description={
+                    share.shareUrl()
+                      ? language.t("session.share.popover.description.shared")
+                      : language.t("session.share.popover.description.unshared")
+                  }
+                  gutter={4}
+                  placement="bottom-end"
+                  shift={-64}
+                  class="rounded-xl [&_[data-slot=popover-close-button]]:hidden"
+                  triggerAs={IconButton}
+                  triggerProps={{
+                    icon: "arrow-up",
+                    variant: "ghost",
+                    size: "normal",
+                    class: "size-6 p-0 text-icon-base hover:text-icon-strong",
+                  }}
+                  trigger={<span />}
+                >
+                  <div class="flex flex-col gap-2">
+                    <Show
+                      when={share.shareUrl()}
+                      fallback={
+                        <div class="flex">
+                          <Button
+                            size="large"
+                            variant="primary"
+                            class="w-1/2"
+                            onClick={share.shareSession}
+                            disabled={share.state.share}
+                          >
+                            {share.state.share
+                              ? language.t("session.share.action.publishing")
+                              : language.t("session.share.action.publish")}
+                          </Button>
                         </div>
-                      </Show>
-                    </div>
-                  </Popover>
-                  <Show when={share.shareUrl()} fallback={<div aria-hidden="true" />}>
-                    <Tooltip
-                      value={
-                        share.state.copied
-                          ? language.t("session.share.copy.copied")
-                          : language.t("session.share.copy.copyLink")
                       }
-                      placement="top"
-                      gutter={8}
                     >
-                      <IconButton
-                        icon={share.state.copied ? "check" : "link"}
-                        variant="ghost"
-                        class="rounded-l-none h-[24px] border border-border-weak-base bg-surface-panel shadow-none"
-                        onClick={() => share.copyLink((error) => showRequestError(language, error))}
-                        disabled={share.state.unshare}
-                        aria-label={
-                          share.state.copied
-                            ? language.t("session.share.copy.copied")
-                            : language.t("session.share.copy.copyLink")
-                        }
-                      />
-                    </Tooltip>
-                  </Show>
-                </div>
+                      <div class="flex flex-col gap-2">
+                        <TextField
+                          value={share.shareUrl() ?? ""}
+                          readOnly
+                          copyable
+                          copyKind="link"
+                          tabIndex={-1}
+                          class="w-full"
+                        />
+                        <div class="grid grid-cols-2 gap-2">
+                          <Button
+                            size="large"
+                            variant="secondary"
+                            class="w-full shadow-none border border-border-weak-base"
+                            onClick={share.unshareSession}
+                            disabled={share.state.unshare}
+                          >
+                            {share.state.unshare
+                              ? language.t("session.share.action.unpublishing")
+                              : language.t("session.share.action.unpublish")}
+                          </Button>
+                          <Button
+                            size="large"
+                            variant="primary"
+                            class="w-full"
+                            onClick={share.viewShare}
+                            disabled={share.state.unshare}
+                          >
+                            {language.t("session.share.action.view")}
+                          </Button>
+                        </div>
+                      </div>
+                    </Show>
+                  </div>
+                </Popover>
               </Show>
               <div class="flex items-center gap-1">
                 <div class="hidden md:flex items-center gap-1 shrink-0">
@@ -545,7 +469,7 @@ export function SessionHeader() {
                   >
                     <Button
                       variant="ghost"
-                      class="group/terminal-toggle titlebar-icon w-8 h-6 p-0 box-border"
+                      class="group/terminal-toggle titlebar-icon w-8 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
                       onClick={() => view().terminal.toggle()}
                       aria-label={language.t("command.terminal.toggle")}
                       aria-expanded={view().terminal.opened()}
@@ -577,7 +501,7 @@ export function SessionHeader() {
                   >
                     <Button
                       variant="ghost"
-                      class="group/review-toggle titlebar-icon w-8 h-6 p-0 box-border"
+                      class="group/review-toggle titlebar-icon w-8 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
                       onClick={() => view().reviewPanel.toggle()}
                       aria-label={language.t("command.review.toggle")}
                       aria-expanded={view().reviewPanel.opened()}
@@ -609,7 +533,7 @@ export function SessionHeader() {
                   >
                     <Button
                       variant="ghost"
-                      class="titlebar-icon w-8 h-6 p-0 box-border"
+                      class="titlebar-icon w-8 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
                       onClick={() => layout.fileTree.toggle()}
                       aria-label={language.t("command.fileTree.toggle")}
                       aria-expanded={layout.fileTree.opened()}

@@ -97,10 +97,10 @@
     white-space: pre-wrap;
     word-break: break-word;
     overflow: hidden;
-    background: var(--surface-base);
-    border: 1px solid var(--border-weak-base);
-    padding: 8px 12px;
-    border-radius: 6px;
+    background: transparent;
+    border: none;
+    padding: 8px 0;
+    border-radius: 0;
 
     [data-highlight="file"] {
       color: var(--syntax-property);
@@ -634,6 +634,10 @@
     line-clamp: 3;
     overflow: hidden;
   }
+}
+
+[data-component="user-message"] [data-slot="user-message-text"] {
+  font-family: var(--font-family-sans) !important;
 }
 
 [data-component="user-message"] [data-slot="user-message-text"],

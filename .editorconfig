@@ -7,3 +7,9 @@ end_of_line = lf
 indent_style = space
 indent_size = 2
 max_line_length = 80
+
+[*.{js,ts,jsx,tsx,json}]
+indent_size = 2
+
+[*.{md,txt}]
+indent_size = 2

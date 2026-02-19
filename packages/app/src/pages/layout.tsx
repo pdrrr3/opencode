@@ -1691,7 +1691,7 @@ export default function Layout(props: ParentProps) {
     return (
       <div
         classList={{
-          "flex flex-col min-h-0 bg-background-stronger border border-b-0 border-border-weak-base rounded-tl-[12px]": true,
+          "flex flex-col min-h-0 bg-background-base border-r-0": true,
           "flex-1 min-w-0": panelProps.mobile,
         }}
         style={{ width: panelProps.mobile ? undefined : `${Math.max(layout.sidebar.width() - 64, 0)}px` }}
@@ -1948,8 +1948,6 @@ export default function Layout(props: ParentProps) {
               settingsLabel={() => language.t("sidebar.settings")}
               settingsKeybind={() => command.keybind("settings.open")}
               onOpenSettings={openSettings}
-              helpLabel={() => language.t("sidebar.help")}
-              onOpenHelp={() => platform.openLink("https://opencode.ai/desktop-feedback")}
               renderPanel={() => <SidebarPanel project={currentProject()} />}
             />
           </div>
@@ -2013,17 +2011,14 @@ export default function Layout(props: ParentProps) {
               settingsLabel={() => language.t("sidebar.settings")}
               settingsKeybind={() => command.keybind("settings.open")}
               onOpenSettings={openSettings}
-              helpLabel={() => language.t("sidebar.help")}
-              onOpenHelp={() => platform.openLink("https://opencode.ai/desktop-feedback")}
-              renderPanel={() => <SidebarPanel project={currentProject()} mobile />}
+              renderPanel={() => <SidebarPanel project={currentProject()} />}
             />
           </nav>
         </div>
 
         <main
           classList={{
-            "size-full overflow-x-hidden flex flex-col items-start contain-strict border-t border-border-weak-base": true,
-            "xl:border-l xl:rounded-tl-[12px]": !layout.sidebar.opened(),
+            "size-full overflow-x-hidden flex flex-col items-start contain-strict mx-auto max-w-[var(--container-width, 580px)]": true,
           }}
         >
           <Show when={!autoselecting()} fallback={<div class="size-full" />}>

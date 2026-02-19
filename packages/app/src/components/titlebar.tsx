@@ -49,7 +49,7 @@ export function Titlebar() {
   const windows = createMemo(() => platform.platform === "desktop" && platform.os === "windows")
   const web = createMemo(() => platform.platform === "web")
   const zoom = () => platform.webviewZoom?.() ?? 1
-  const minHeight = () => (mac() ? `${40 / zoom()}px` : undefined)
+  const minHeight = () => undefined
 
   const [history, setHistory] = createStore({
     stack: [] as string[],
@@ -167,7 +167,6 @@ export function Titlebar() {
         }}
       >
         <Show when={mac()}>
-          <div class="h-full shrink-0" style={{ width: `${72 / zoom()}px` }} />
           <div class="xl:hidden w-10 shrink-0 flex items-center justify-center">
             <IconButton
               icon="menu"
@@ -193,7 +192,9 @@ export function Titlebar() {
         </Show>
         <div class="flex items-center gap-1 shrink-0">
           <TooltipKeybind
-            class={web() ? "hidden xl:flex shrink-0 ml-14" : "hidden xl:flex shrink-0 ml-2"}
+            class={
+              web() ? "hidden xl:flex shrink-0 ml-0 text-icon-base" : "hidden xl:flex shrink-0 ml-0 text-icon-base"
+            }
             placement="bottom"
             title={language.t("command.sidebar.toggle")}
             keybind={command.keybind("sidebar.toggle")}

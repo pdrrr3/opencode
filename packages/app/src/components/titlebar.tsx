@@ -49,7 +49,7 @@ export function Titlebar() {
   const windows = createMemo(() => platform.platform === "desktop" && platform.os === "windows")
   const web = createMemo(() => platform.platform === "web")
   const zoom = () => platform.webviewZoom?.() ?? 1
-  const minHeight = () => undefined
+  const minHeight = () => (mac() ? `${40 / zoom()}px` : undefined)
 
   const [history, setHistory] = createStore({
     stack: [] as string[],
@@ -167,11 +167,12 @@ export function Titlebar() {
         }}
       >
         <Show when={mac()}>
+          <div class="h-full shrink-0" style={{ width: `${72 / zoom()}px` }} />
           <div class="xl:hidden w-10 shrink-0 flex items-center justify-center">
             <IconButton
               icon="menu"
               variant="ghost"
-              class="titlebar-icon rounded-md"
+              class="titlebar-icon rounded-md text-icon-base hover:text-icon-strong"
               onClick={layout.mobileSidebar.toggle}
               aria-label={language.t("sidebar.menu.toggle")}
               aria-expanded={layout.mobileSidebar.opened()}
@@ -183,7 +184,7 @@ export function Titlebar() {
             <IconButton
               icon="menu"
               variant="ghost"
-              class="titlebar-icon rounded-md"
+              class="titlebar-icon rounded-md text-icon-base hover:text-icon-strong"
               onClick={layout.mobileSidebar.toggle}
               aria-label={language.t("sidebar.menu.toggle")}
               aria-expanded={layout.mobileSidebar.opened()}
@@ -201,7 +202,7 @@ export function Titlebar() {
           >
             <Button
               variant="ghost"
-              class="group/sidebar-toggle titlebar-icon w-8 h-6 p-0 box-border"
+              class="group/sidebar-toggle titlebar-icon w-8 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
               onClick={layout.sidebar.toggle}
               aria-label={language.t("command.sidebar.toggle")}
               aria-expanded={layout.sidebar.opened()}
@@ -232,7 +233,7 @@ export function Titlebar() {
                 <Button
                   variant="ghost"
                   icon="new-session"
-                  class="titlebar-icon w-8 h-6 p-0 box-border"
+                  class="titlebar-icon w-8 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
                   onClick={() => {
                     if (!params.dir) return
                     navigate(`/${params.dir}/session`)
@@ -246,7 +247,7 @@ export function Titlebar() {
                 <Button
                   variant="ghost"
                   icon="chevron-left"
-                  class="titlebar-icon w-6 h-6 p-0 box-border"
+                  class="titlebar-icon w-6 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
                   disabled={!canBack()}
                   onClick={back}
                   aria-label={language.t("common.goBack")}
@@ -256,20 +257,32 @@ export function Titlebar() {
                 <Button
                   variant="ghost"
                   icon="chevron-right"
-                  class="titlebar-icon w-6 h-6 p-0 box-border"
+                  class="titlebar-icon w-6 h-6 p-0 box-border text-icon-base hover:text-icon-strong"
                   disabled={!canForward()}
                   onClick={forward}
                   aria-label={language.t("common.goForward")}
                 />
               </Tooltip>
             </div>
+            <Tooltip placement="bottom" value={language.t("session.header.searchFiles")}>
+              <IconButton
+                icon="magnifying-glass"
+                variant="ghost"
+                size="normal"
+                class="titlebar-icon size-6 p-0 text-icon-base hover:text-icon-strong ml-1"
+                onClick={() => command.trigger("file.open")}
+                aria-label={language.t("session.header.searchFiles")}
+              />
+            </Tooltip>
           </div>
         </div>
         <div id="opencode-titlebar-left" class="flex items-center gap-3 min-w-0 px-2" />
       </div>
 
       <div class="min-w-0 flex items-center justify-center pointer-events-none">
-        <div id="opencode-titlebar-center" class="pointer-events-auto w-full min-w-0 flex justify-center lg:w-fit" />
+        <div class="w-full max-w-[var(--container-width,580px)] mx-auto flex items-center px-4 md:px-5 pointer-events-auto">
+          <div id="opencode-titlebar-center" class="pointer-events-auto w-full min-w-0 flex items-center lg:w-fit" />
+        </div>
       </div>
 
       <div
@@ -279,7 +292,7 @@ export function Titlebar() {
         }}
         onMouseDown={drag}
       >
-        <div id="opencode-titlebar-right" class="flex items-center gap-1 shrink-0 justify-end" />
+        <div id="opencode-titlebar-right" class="flex items-center gap-4 shrink-0 justify-end" />
         <Show when={windows()}>
           <div class="w-6 shrink-0" />
           <div data-tauri-decorum-tb class="flex flex-row" />

@@ -211,7 +211,7 @@ export function DialogEditProject(props: { project: LocalProject }) {
                       aria-pressed={store.color === color}
                       classList={{
                         "flex items-center justify-center size-10 p-0.5 rounded-lg overflow-hidden transition-colors cursor-default": true,
-                        "bg-transparent border-2 border-icon-strong-base hover:bg-surface-base-hover":
+                        "bg-transparent border border-icon-strong-base hover:bg-surface-base-hover":
                           store.color === color,
                         "bg-transparent border border-transparent hover:bg-surface-base-hover hover:border-border-weak-base":
                           store.color !== color,

@@ -4,10 +4,10 @@
   --font-family-mono: "Akkurat Mono", monospace;
   --font-family-mono--font-feature-settings: normal;
 
-  --font-size-small: 13px;
-  --font-size-base: 14px;
-  --font-size-large: 16px;
-  --font-size-x-large: 20px;
+  --font-size-small: 12px;
+  --font-size-base: 13px;
+  --font-size-large: 15px;
+  --font-size-x-large: 18px;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --line-height-normal: 130%;
@@ -487,9 +487,9 @@
     --border-info-base: var(--lilac-light-6);
     --border-info-hover: var(--lilac-light-7);
     --border-info-selected: var(--lilac-light-9);
-    --icon-base: var(--smoke-dark-9);
-    --icon-hover: var(--smoke-dark-10);
-    --icon-active: var(--smoke-dark-11);
+    --icon-base: var(--smoke-dark-11);
+    --icon-hover: var(--smoke-dark-11);
+    --icon-active: var(--smoke-dark-12);
     --icon-selected: var(--smoke-dark-12);
     --icon-disabled: var(--smoke-dark-7);
     --icon-focus: var(--smoke-dark-12);

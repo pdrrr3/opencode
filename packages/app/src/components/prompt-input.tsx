@@ -1246,7 +1246,7 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
       </form>
       <Show when={store.mode === "normal" || store.mode === "shell"}>
         <div class="-mt-3.5 relative z-0 rounded-[12px] rounded-tl-0 rounded-tr-0 overflow-clip text-white/50 opacity-50">
-          <div class="px-2 pt-5.5 pb-2 flex items-center gap-2 min-w-0">
+          <div class="pl-1 pr-2 pt-5.5 pb-2 flex items-center gap-2 min-w-0">
             <div class="flex items-center gap-1.5 min-w-0 flex-1">
               <Show when={store.mode === "shell"}>
                 <div class="h-7 flex items-center gap-1.5 max-w-[160px] min-w-0" style={{ padding: "0 4px 0 8px" }}>

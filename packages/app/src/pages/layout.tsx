@@ -127,6 +127,7 @@ export default function Layout(props: ParentProps) {
     busyWorkspaces: {} as Record<string, boolean>,
     hoverSession: undefined as string | undefined,
     hoverProject: undefined as string | undefined,
+    projectHoverOpen: false,
     scrollSessionKey: undefined as string | undefined,
     nav: undefined as HTMLElement | undefined,
   })
@@ -1663,6 +1664,8 @@ export default function Layout(props: ParentProps) {
       archiveSession,
     },
     setHoverSession,
+    projectHoverOpen: () => state.projectHoverOpen,
+    setProjectHoverOpen: (value) => setState("projectHoverOpen", value),
   }
 
   const SidebarPanel = (panelProps: { project: LocalProject | undefined; mobile?: boolean }) => {
@@ -1786,16 +1789,17 @@ export default function Layout(props: ParentProps) {
                   when={workspacesEnabled()}
                   fallback={
                     <>
-                      <div class="shrink-0 py-4 px-3">
+                      <div class="shrink-0 py-2 px-3">
                         <TooltipKeybind
                           title={language.t("command.session.new")}
                           keybind={command.keybind("session.new")}
                           placement="top"
                         >
                           <Button
+                            variant="ghost"
                             size="large"
                             icon="plus-small"
-                            class="w-full"
+                            class="w-full border border-border-base shadow-none"
                             onClick={() => navigateWithSidebarReset(`/${base64Encode(p().worktree)}/session`)}
                           >
                             {language.t("command.session.new")}
@@ -1820,7 +1824,13 @@ export default function Layout(props: ParentProps) {
                         keybind={command.keybind("workspace.new")}
                         placement="top"
                       >
-                        <Button size="large" icon="plus-small" class="w-full" onClick={() => createWorkspace(p())}>
+                        <Button
+                          variant="ghost"
+                          size="large"
+                          icon="plus-small"
+                          class="w-full border border-border-base shadow-none"
+                          onClick={() => createWorkspace(p())}
+                        >
                           {language.t("workspace.new")}
                         </Button>
                       </TooltipKeybind>

@@ -34,6 +34,8 @@ export type ProjectSidebarContext = {
   workspaceLabel: (directory: string, branch?: string, projectId?: string) => string
   sessionProps: Omit<SessionItemProps, "session" | "slug" | "children" | "mobile" | "dense" | "popover">
   setHoverSession: (id: string | undefined) => void
+  projectHoverOpen: Accessor<boolean>
+  setProjectHoverOpen: (value: boolean) => void
 }
 
 export const ProjectDragOverlay = (props: {
@@ -100,7 +102,7 @@ const ProjectTile = (props: {
         data-project={base64Encode(props.project.worktree)}
         classList={{
           "flex items-center justify-center size-10 p-1 rounded-lg overflow-hidden transition-colors cursor-default": true,
-          "bg-transparent border-2 border-icon-strong-base hover:bg-surface-base-hover": props.selected(),
+          "bg-transparent border border-icon-strong-base hover:bg-surface-base-hover": props.selected(),
           "bg-transparent border border-transparent hover:bg-surface-base-hover hover:border-border-weak-base":
             !props.selected() && !props.active(),
           "bg-surface-base-hover border border-border-weak-base": !props.selected() && props.active(),
@@ -361,6 +363,7 @@ export const SortableProject = (props: {
           onOpenChange={(value) => {
             if (menu()) return
             setOpen(value)
+            props.ctx.setProjectHoverOpen(value)
             if (value) props.ctx.setHoverSession(undefined)
           }}
         >

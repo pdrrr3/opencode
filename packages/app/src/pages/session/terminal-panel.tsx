@@ -138,7 +138,7 @@ export function TerminalPanel() {
         id="terminal-panel"
         role="region"
         aria-label={language.t("terminal.title")}
-        class="relative w-full flex flex-col shrink-0 border-t border-border-weak-base"
+        class="relative w-full flex flex-col shrink-0 border-y border-r border-border-weak-base rounded-lg"
         style={{ height: `${height()}px` }}
       >
         <ResizeHandle

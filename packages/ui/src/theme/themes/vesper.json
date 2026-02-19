@@ -18,7 +18,7 @@
       "background-base": "#FFF",
       "background-weak": "#F8F8F8",
       "background-strong": "#F0F0F0",
-      "background-stronger": "#FBFBFB",
+      "background-stronger": "#FFF",
       "border-weak-hover": "#E0E0E0",
       "border-weak-active": "#D8D8D8",
       "border-weak-selected": "#D0D0D0",

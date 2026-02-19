@@ -10,17 +10,9 @@ div[data-tauri-decorum-tb] {
 :root {
   --font-ui: "USB", sans-serif;
   --font-code: "Akkurat Mono", monospace;
-  --ui-font-size: 14px;
-  --ui-line-height: 1.5;
-  --ui-letter-spacing: 0.03em;
-}
-
-[data-theme="vesper"] {
-  --background-base: #000000 !important;
-  --background-stronger: #000000 !important;
-  --surface-base: #000000 !important;
-  --surface-raised-base: #000000 !important;
-  --surface-raised-stronger-non-alpha: #000000 !important;
+  --ui-font-size: var(--font-size-base);
+  --ui-line-height: var(--line-height-large);
+  --ui-letter-spacing: var(--letter-spacing-normal);
 }
 
 body {
@@ -28,36 +20,7 @@ body {
   font-size: var(--ui-font-size);
   line-height: var(--ui-line-height);
   letter-spacing: var(--ui-letter-spacing);
-  background: var(--background-base) !important;
-}
-
-::selection {
-  background: yellow !important;
-  color: black !important;
-}
-
-svg[data-component="logo-splash"],
-svg[data-component="logo-splash"] * {
-  color: #fff !important;
-  fill: #fff !important;
-  stroke: #fff !important;
-}
-
-[data-theme="vesper"] {
-  --background-base: #080808 !important;
-  --background-stronger: #080808 !important;
-  --surface-base: #080808 !important;
-  --surface-panel: #080808 !important;
-  --surface-raised-base: #080808 !important;
-  --surface-variant-base: #080808 !important;
-  --smoke-dark-1: #080808 !important;
-  --smoke-dark-alpha-2: #080808 !important;
-}
-
-* {
-  background: var(--background-base) !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+  background: var(--background-base);
 }
 
 code,
@@ -68,18 +31,29 @@ pre,
 }
 
 /* Editor UI text styling */
-[data-component="prompt-input"],
-[data-component="session-prompt-dock"] .text-13-regular,
-[data-component="session-prompt-dock"] .text-14-regular,
-[data-component="session-prompt-dock"] button,
-[data-component="session-prompt-dock"] span {
-  font-size: var(--ui-font-size) !important;
-  line-height: var(--ui-line-height) !important;
-  letter-spacing: var(--ui-letter-spacing) !important;
+body,
+button,
+input,
+textarea,
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div:not(.font-mono):not(code):not(pre) {
+  font-family: var(--font-ui);
+}
+
+[data-component="prompt-input"] {
+  font-family: var(--font-ui) !important;
 }
 
 [data-component="message-timeline"] {
-  max-width: var(--container-width, 680px) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  max-width: var(--container-width, 580px);
+  margin-left: auto;
+  margin-right: auto;
 }

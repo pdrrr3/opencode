@@ -94,7 +94,7 @@ const SessionRow = (props: {
 }): JSX.Element => (
   <A
     href={`/${props.slug}/session/${props.session.id}`}
-    class={`flex items-center justify-start gap-3 min-w-0 text-left w-full focus:outline-none transition-[padding] opacity-50 ${props.mobile ? "pr-7" : ""} group-hover/session:pr-7 group-focus-within/session:pr-7 group-active/session:pr-7 ${props.dense ? "py-0.5" : "py-1"}`}
+    class={`flex items-center justify-start gap-3 min-w-0 text-left w-full focus:outline-none transition-[padding] opacity-50 [&.active]:opacity-100 ${props.mobile ? "pr-7" : ""} group-hover/session:pr-7 group-focus-within/session:pr-7 group-active/session:pr-7 ${props.dense ? "py-0.5" : "py-1"}`}
     onPointerEnter={props.scheduleHoverPrefetch}
     onPointerLeave={props.cancelHoverPrefetch}
     onMouseEnter={props.scheduleHoverPrefetch}
@@ -279,7 +279,7 @@ export const SessionItem = (props: SessionItemProps): JSX.Element => {
   return (
     <div
       data-session-id={props.session.id}
-      class="group/session relative w-full rounded-md cursor-default transition-colors pl-2 pr-3
+      class="group/session relative w-full rounded-full cursor-default transition-colors pl-2 pr-3
              hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover has-[[data-expanded]]:bg-surface-raised-base-hover has-[.active]:bg-surface-base-active"
     >
       <Show
@@ -358,7 +358,7 @@ export const NewSessionItem = (props: {
     <A
       href={`/${props.slug}/session`}
       end
-      class={`flex items-center justify-start gap-3 min-w-0 text-left w-full focus:outline-none opacity-50 bg-background-strong hover:bg-background-base rounded-md px-2 ${props.dense ? "py-0.5" : "py-1"}`}
+      class={`flex items-center justify-start gap-3 min-w-0 text-left w-full focus:outline-none opacity-50 border border-border-base hover:bg-background-base rounded-full px-2 ${props.dense ? "py-0.5" : "py-1"}`}
       onClick={() => {
         props.setHoverSession(undefined)
         if (layout.sidebar.opened()) return
@@ -377,7 +377,7 @@ export const NewSessionItem = (props: {
   )
 
   return (
-    <div class="group/session relative w-full rounded-md cursor-default transition-colors pl-2 pr-3 hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover has-[.active]:bg-surface-base-active">
+    <div class="group/session relative w-full rounded-full cursor-default transition-colors pl-2 pr-3 hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover has-[.active]:bg-surface-base-active">
       <Show
         when={!tooltip()}
         fallback={

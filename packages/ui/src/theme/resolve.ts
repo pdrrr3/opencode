@@ -21,7 +21,7 @@ export function resolveThemeVariant(variant: ThemeVariant, isDark: boolean): Res
   tokens["background-base"] = neutral[0]
   tokens["background-weak"] = neutral[2]
   tokens["background-strong"] = neutral[0]
-  tokens["background-stronger"] = isDark ? neutral[1] : "#fcfcfc"
+  tokens["background-stronger"] = isDark ? neutral[1] : "#ffffff"
 
   tokens["surface-base"] = neutralAlpha[1]
   tokens["base"] = neutralAlpha[1]

@@ -193,7 +193,7 @@ export function SessionSidePanel(props: {
       <aside
         id="review-panel"
         aria-label={language.t("session.panel.reviewAndFiles")}
-        class="relative min-w-0 h-full border-l border-border-weak-base flex"
+        class="relative min-w-0 h-full flex"
         classList={{
           "flex-1": reviewOpen(),
           "shrink-0": !reviewOpen(),

@@ -15,10 +15,10 @@
       "diffDelete": "#fc533a"
     },
     "overrides": {
-      "background-base": "#f8f7f7",
+      "background-base": "#ffffff",
       "background-weak": "var(--smoke-light-3)",
       "background-strong": "var(--smoke-light-1)",
-      "background-stronger": "#fcfcfc",
+      "background-stronger": "#ffffff",
       "surface-base": "var(--smoke-light-alpha-2)",
       "base": "var(--smoke-light-alpha-2)",
       "surface-base-hover": "#0500000f",

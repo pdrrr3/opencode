@@ -92,7 +92,7 @@ export function MessageTimeline(props: {
   })
   const titleValue = createMemo(() => info()?.title)
   const parentID = createMemo(() => info()?.parentID)
-  const showHeader = createMemo(() => !!(titleValue() || parentID()))
+  const showHeader = () => false
 
   const [title, setTitle] = createStore({
     draft: "",

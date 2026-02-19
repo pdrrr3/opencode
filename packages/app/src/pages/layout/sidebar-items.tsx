@@ -142,7 +142,6 @@ const SessionRow = (props: {
 
 const SessionHoverPreview = (props: {
   mobile?: boolean
-  nav: Accessor<HTMLElement | undefined>
   hoverSession: Accessor<string | undefined>
   session: Session
   sidebarHovering: Accessor<boolean>
@@ -163,7 +162,6 @@ const SessionHoverPreview = (props: {
     gutter={16}
     shift={-2}
     trigger={props.trigger}
-    mount={!props.mobile ? props.nav() : undefined}
     open={props.hoverSession() === props.session.id}
     onOpenChange={(open) => props.setHoverSession(open ? props.session.id : undefined)}
   >
@@ -276,23 +274,29 @@ export const SessionItem = (props: SessionItemProps): JSX.Element => {
     />
   )
 
+  const tooltip = createMemo(() => props.mobile || !props.sidebarExpanded())
+
   return (
     <div
       data-session-id={props.session.id}
-      class="group/session relative w-full rounded-full cursor-default transition-colors pl-2 pr-3
-             hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover has-[[data-expanded]]:bg-surface-raised-base-hover"
+      class="group/session relative w-full rounded-full cursor-default transition-colors pl-2 pr-3"
+      classList={{
+        "hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover has-[[data-expanded]]:bg-surface-raised-base-hover":
+          !isActive(),
+      }}
     >
       <Show
         when={hoverEnabled()}
         fallback={
-          <Tooltip placement={props.mobile ? "bottom" : "right"} value={props.session.title} gutter={10}>
-            {item}
-          </Tooltip>
+          <Show when={tooltip()} fallback={item}>
+            <Tooltip placement={props.mobile ? "bottom" : "right"} value={props.session.title} gutter={10}>
+              {item}
+            </Tooltip>
+          </Show>
         }
       >
         <SessionHoverPreview
           mobile={props.mobile}
-          nav={props.nav}
           hoverSession={props.hoverSession}
           session={props.session}
           sidebarHovering={props.sidebarHovering}
@@ -351,8 +355,10 @@ export const NewSessionItem = (props: {
   setHoverSession: (id: string | undefined) => void
 }): JSX.Element => {
   const layout = useLayout()
+  const params = useParams()
   const language = useLanguage()
   const label = language.t("command.session.new")
+  const isActive = createMemo(() => !params.id && props.slug === params.dir)
   const tooltip = () => props.mobile || !props.sidebarExpanded()
   const item = (
     <A
@@ -377,7 +383,12 @@ export const NewSessionItem = (props: {
   )
 
   return (
-    <div class="group/session relative w-full rounded-full cursor-default transition-colors pl-2 pr-3 hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover">
+    <div
+      class="group/session relative w-full rounded-full cursor-default transition-colors pl-2 pr-3"
+      classList={{
+        "hover:bg-surface-raised-base-hover [&:has(:focus-visible)]:bg-surface-raised-base-hover": !isActive(),
+      }}
+    >
       <Show
         when={!tooltip()}
         fallback={

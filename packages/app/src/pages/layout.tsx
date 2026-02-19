@@ -1799,7 +1799,8 @@ export default function Layout(props: ParentProps) {
                             variant="ghost"
                             size="large"
                             icon="plus-small"
-                            class="w-full border border-border-base shadow-none rounded-full"
+                            class="w-full border border-border-base shadow-none"
+                            style={{ "border-radius": "9999px" }}
                             onClick={() => navigateWithSidebarReset(`/${base64Encode(p().worktree)}/session`)}
                           >
                             {language.t("command.session.new")}

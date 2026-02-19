@@ -55,7 +55,7 @@ const defaultSettings: Settings = {
   appearance: {
     fontSize: 14,
     font: "akkurat-mono",
-    uiFont: "usb",
+    uiFont: "system-sans",
     uiFontSize: 14,
     uiLineHeight: 1.5,
     uiLetterSpacing: 0.03,

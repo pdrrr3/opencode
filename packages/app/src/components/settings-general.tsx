@@ -210,6 +210,7 @@ export const SettingsGeneral: Component = () => {
         </SettingsRow>
         */}
 
+        {/* Theme settings hidden
         <SettingsRow
           title={language.t("settings.general.row.theme.title")}
           description={
@@ -239,6 +240,7 @@ export const SettingsGeneral: Component = () => {
             triggerVariant="settings"
           />
         </SettingsRow>
+        */}
 
         <SettingsRow
           title={language.t("settings.general.row.font.title")}

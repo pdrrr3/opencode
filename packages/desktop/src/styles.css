@@ -8,11 +8,8 @@ div[data-tauri-decorum-tb] {
 
 /* Custom fonts */
 :root {
-  --font-ui: "USB", sans-serif;
-  --font-code: "Akkurat Mono", monospace;
-  --ui-font-size: var(--font-size-base);
-  --ui-line-height: var(--line-height-large);
-  --ui-letter-spacing: var(--letter-spacing-normal);
+  --font-ui: var(--font-family-sans, "USB", sans-serif);
+  --font-code: var(--font-family-mono, "Akkurat Mono", monospace);
 }
 
 body {

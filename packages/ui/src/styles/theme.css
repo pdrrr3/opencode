@@ -4,17 +4,19 @@
   --font-family-mono: "Akkurat Mono", monospace;
   --font-family-mono--font-feature-settings: normal;
 
-  --font-size-small: 12px;
-  --font-size-base: 13px;
-  --font-size-large: 15px;
-  --font-size-x-large: 18px;
+  --font-size-base: var(--ui-font-size, 14px);
+  --font-size-13: calc(var(--font-size-base) - 1px);
+  --font-size-small: calc(var(--font-size-base) - 2px);
+  --font-size-15: calc(var(--font-size-base) + 1px);
+  --font-size-large: calc(var(--font-size-base) + 2px);
+  --font-size-x-large: calc(var(--font-size-base) + 4px);
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --line-height-normal: 130%;
-  --line-height-large: 150%;
+  --line-height-large: var(--ui-line-height, 150%);
   --line-height-x-large: 180%;
   --line-height-2x-large: 200%;
-  --letter-spacing-normal: 0;
+  --letter-spacing-normal: var(--ui-letter-spacing, 0);
   --letter-spacing-tight: -0.1599999964237213;
   --letter-spacing-tightest: -0.3199999928474426;
   --paragraph-spacing-base: 0;

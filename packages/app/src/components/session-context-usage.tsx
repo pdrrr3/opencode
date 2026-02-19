@@ -12,6 +12,7 @@ import { getSessionContextMetrics } from "@/components/session/session-context-m
 interface SessionContextUsageProps {
   variant?: "button" | "indicator"
   placement?: TooltipProps["placement"]
+  class?: string
 }
 
 function openSessionContext(args: {
@@ -103,7 +104,7 @@ export function SessionContextUsage(props: SessionContextUsageProps) {
             <Button
               type="button"
               variant="ghost"
-              class="size-6"
+              class={props.class ?? "size-6"}
               onClick={openContext}
               aria-label={language.t("context.usage.view")}
             >

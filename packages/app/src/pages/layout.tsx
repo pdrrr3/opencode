@@ -1799,7 +1799,7 @@ export default function Layout(props: ParentProps) {
                             variant="ghost"
                             size="large"
                             icon="plus-small"
-                            class="w-full border border-border-base shadow-none"
+                            class="w-full border border-border-base shadow-none rounded-full"
                             onClick={() => navigateWithSidebarReset(`/${base64Encode(p().worktree)}/session`)}
                           >
                             {language.t("command.session.new")}
@@ -1828,7 +1828,7 @@ export default function Layout(props: ParentProps) {
                           variant="ghost"
                           size="large"
                           icon="plus-small"
-                          class="w-full border border-border-base shadow-none"
+                          class="w-full border border-border-base shadow-none rounded-full"
                           onClick={() => createWorkspace(p())}
                         >
                           {language.t("workspace.new")}
@@ -2028,7 +2028,7 @@ export default function Layout(props: ParentProps) {
 
         <main
           classList={{
-            "size-full overflow-x-hidden flex flex-col items-start contain-strict mx-auto max-w-[var(--container-width, 580px)]": true,
+            "size-full overflow-x-hidden flex flex-col items-start contain-strict mx-auto max-w-[var(--container-width,580px)]": true,
           }}
         >
           <Show when={!autoselecting()} fallback={<div class="size-full" />}>

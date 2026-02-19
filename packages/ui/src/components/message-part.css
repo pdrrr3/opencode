@@ -386,7 +386,7 @@
   [data-slot="bash-pre"] code {
     font-family: var(--font-family-mono);
     font-feature-settings: var(--font-family-mono--font-feature-settings);
-    font-size: 13px;
+    font-size: var(--font-size-13);
     line-height: var(--line-height-large);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
@@ -420,7 +420,7 @@
     align-items: center;
     gap: 8px;
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-style: normal;
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-large);
@@ -558,7 +558,7 @@
     align-items: center;
     gap: 8px;
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-large);
     color: var(--text-strong);
@@ -807,7 +807,7 @@
 
   [data-slot="permission-header-title"] {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-large);
     color: var(--text-strong);
@@ -824,7 +824,7 @@
 
   [data-slot="permission-hint"] {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-large);
     color: var(--text-weak);
@@ -849,7 +849,7 @@
     }
 
     code {
-      font-size: 14px;
+      font-size: var(--font-size-base);
       line-height: var(--line-height-large);
     }
   }
@@ -914,7 +914,7 @@
 
   [data-slot="question-header-title"] {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-large);
     color: var(--text-strong);
@@ -974,7 +974,7 @@
 
   [data-slot="question-text"] {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-large);
     color: var(--text-strong);
@@ -983,7 +983,7 @@
 
   [data-slot="question-hint"] {
     font-family: var(--font-family-sans);
-    font-size: 13px;
+    font-size: var(--font-size-13);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-large);
     color: var(--text-weak);
@@ -1108,7 +1108,7 @@
 
   [data-slot="option-label"] {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     line-height: var(--line-height-large);
     color: var(--text-strong);
@@ -1116,7 +1116,7 @@
 
   [data-slot="option-description"] {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-large);
     color: var(--text-base);
@@ -1154,7 +1154,7 @@
     box-shadow: none;
     outline: none;
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-large);
     color: var(--text-base);
@@ -1211,7 +1211,7 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    font-size: 13px;
+    font-size: var(--font-size-13);
 
     [data-slot="question-text"] {
       color: var(--text-weak);

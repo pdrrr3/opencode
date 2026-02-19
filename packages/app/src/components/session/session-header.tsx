@@ -24,6 +24,7 @@ import { TextField } from "@opencode-ai/ui/text-field"
 import { Keybind } from "@opencode-ai/ui/keybind"
 import { showToast } from "@opencode-ai/ui/toast"
 import { StatusPopover } from "../status-popover"
+import { SessionContextUsage } from "../session-context-usage"
 
 const OPEN_APPS = [
   "vscode",
@@ -316,6 +317,10 @@ export function SessionHeader() {
           <Portal mount={mount()}>
             <div class="flex items-center gap-1 justify-end flex-1">
               <StatusPopover />
+              <SessionContextUsage
+                placement="bottom"
+                class="titlebar-icon size-6 p-0 text-icon-base hover:text-icon-strong"
+              />
               <Show when={projectDirectory()}>
                 <div class="hidden xl:flex items-center">
                   <Show when={canOpen()}>

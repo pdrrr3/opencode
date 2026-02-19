@@ -375,7 +375,7 @@ export function MessageTimeline(props: {
                 "w-full": true,
                 "pb-4": true,
                 "px-4 md:px-5": true,
-                "mx-auto max-w-[var(--container-width, 580px)]": true,
+                "mx-auto max-w-[var(--container-width,580px)]": true,
               }}
             >
               <div class="h-12 w-full flex items-center justify-between gap-2">
@@ -487,7 +487,8 @@ export function MessageTimeline(props: {
             class="flex flex-col gap-12 items-start justify-start pb-16 transition-[margin]"
             classList={{
               "w-full": true,
-              "md:max-w-[580px] md:mx-auto 2xl:max-w-[580px]": props.centered,
+              "md:max-w-[var(--container-width,580px)] md:mx-auto 2xl:max-w-[var(--container-width,580px)]":
+                props.centered,
               "mt-0.5": props.centered,
               "mt-0": !props.centered,
             }}
@@ -525,7 +526,7 @@ export function MessageTimeline(props: {
                   }}
                   classList={{
                     "min-w-0 w-full max-w-full": true,
-                    "md:max-w-[580px] 2xl:max-w-[580px]": props.centered,
+                    "md:max-w-[var(--container-width,580px)] 2xl:max-w-[var(--container-width,580px)]": props.centered,
                   }}
                 >
                   <SessionTurn
